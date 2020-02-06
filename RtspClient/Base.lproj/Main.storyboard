@@ -36,20 +36,32 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="3GZ-Fi-fZi">
                                 <rect key="frame" x="323.5" y="177.5" width="20" height="20"/>
                             </activityIndicatorView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="JGf-Il-0FC">
+                                <rect key="frame" x="183.5" y="10" width="300" height="34"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="1Ms-hv-oyy"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="JGf-Il-0FC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9R5-CC-5Lm"/>
                             <constraint firstItem="3GZ-Fi-fZi" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Al3-GA-62l"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="RKN-1u-ld3" secondAttribute="bottom" id="Oh8-q4-ohc"/>
                             <constraint firstItem="RKN-1u-ld3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="S9v-Bj-yEx"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Rbz-HC-g1J" secondAttribute="bottom" constant="30" id="TgB-nW-Ay3"/>
                             <constraint firstAttribute="trailing" secondItem="RKN-1u-ld3" secondAttribute="trailing" id="XGs-6C-GXn"/>
+                            <constraint firstItem="JGf-Il-0FC" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="aIP-EP-i8W"/>
                             <constraint firstItem="3GZ-Fi-fZi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bu1-05-J6E"/>
                             <constraint firstItem="Rbz-HC-g1J" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kJe-dC-exT"/>
                             <constraint firstItem="RKN-1u-ld3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="pHy-FH-qam"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="address" destination="JGf-Il-0FC" id="1Qu-Cx-2hc"/>
                         <outlet property="busy" destination="3GZ-Fi-fZi" id="COy-bs-2ze"/>
                         <outlet property="button" destination="Rbz-HC-g1J" id="meH-ec-7lV"/>
                         <outlet property="imageView" destination="RKN-1u-ld3" id="Swi-Ub-qxN"/>

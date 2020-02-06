@@ -7,14 +7,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var address: UITextField!
     @IBOutlet weak var busy: UIActivityIndicatorView!
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     var video: RTSPPlayer!
-    let urlForTesting = "rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov"
-    let urlString = "rtsp://114.32.99.223/v01"
+    var urlString = "rtsp://114.32.99.223/v01"
     var timer: Timer?
 
     override func viewDidLoad() {
@@ -26,6 +26,8 @@ class ViewController: UIViewController {
         button.layer.cornerRadius = 15
 
         busy.transform = CGAffineTransform.init(scaleX: 3, y: 3)
+        address.text = urlString
+        address.delegate = self
     }
 
     @objc func update(timer: Timer) {
@@ -76,6 +78,14 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        address.endEditing(true)
+        if let url = address.text {
+            urlString = url
+        }
+        return true
     }
 }
 
