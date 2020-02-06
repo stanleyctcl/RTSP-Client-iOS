@@ -82,10 +82,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         address.endEditing(true)
+        return true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
         if let url = address.text {
             urlString = url
         }
-        return true
+        print("url = \(urlString)")
     }
 }
 
