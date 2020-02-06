@@ -36,31 +36,34 @@ class ViewController: UIViewController, UITextFieldDelegate {
             video.closeAudio()
         }
 
-        DispatchQueue.main.async {
-            self.imageView.image = self.video.currentImage
+        imageView.image = video.currentImage
 
-            if self.busy.isAnimating {
-                self.busy.stopAnimating()
-            }
+        if busy.isAnimating {
+            busy.stopAnimating()
         }
     }
 
     @IBAction func onPress(_ sender: UIButton) {
-        if sender.title(for: .normal) == "Start" {
-            sender.setTitle("Exit", for: .normal)
-
+        if sender.title(for: .normal) == "Connect" {
             busy.startAnimating()
-            DispatchQueue(label: "rtspThread").async {
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
                 self.startStreaming()
             }
         } else {
-            sender.setTitle("Start", for: .normal)
+            sender.setTitle("Connect", for: .normal)
             stopStreaming()
         }
     }
 
     fileprivate func startStreaming() {
         video = RTSPPlayer(video: urlString, usesTcp: true)
+
+        guard video != nil else {
+            busy.stopAnimating()
+            alertMessage(show: "Connect failed")
+            return
+        }
+        button.setTitle("Disconnect", for: .normal)
         video.outputWidth = Int32(1280)
         video.outputHeight = Int32(720)
         video.seekTime(0.0)
@@ -71,9 +74,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     fileprivate func stopStreaming(){
         timer?.invalidate()
-        video.closeAudio()
+        video?.closeAudio()
         video = nil
         imageView.image = nil
+    }
+
+    fileprivate func alertMessage(show msg: String){
+        let alert = UIAlertController(title: "ERROR", message: msg, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion:  nil)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

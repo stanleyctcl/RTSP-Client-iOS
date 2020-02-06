@@ -23,12 +23,12 @@
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rbz-HC-g1J">
-                                <rect key="frame" x="293.5" y="297" width="80" height="48"/>
+                                <rect key="frame" x="258.5" y="299" width="150" height="46"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="gUr-zT-p2H"/>
+                                    <constraint firstAttribute="width" constant="150" id="gUr-zT-p2H"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Start"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <state key="normal" title="Connect"/>
                                 <connections>
                                     <action selector="onPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WYb-tH-QqY"/>
                                 </connections>
