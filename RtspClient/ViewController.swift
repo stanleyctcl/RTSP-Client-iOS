@@ -45,10 +45,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func onPress(_ sender: UIButton) {
         if sender.title(for: .normal) == "Connect" {
-            busy.startAnimating()
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
-                self.startStreaming()
-            }
+            startStreaming()
         } else {
             sender.setTitle("Connect", for: .normal)
             stopStreaming()
@@ -56,20 +53,26 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     fileprivate func startStreaming() {
-        video = RTSPPlayer(video: urlString, usesTcp: true)
+        func connectRTSP() {
+            video = RTSPPlayer(video: urlString, usesTcp: true)
 
-        guard video != nil else {
-            busy.stopAnimating()
-            alertMessage(show: "Connect failed")
-            return
+            guard video != nil else {
+                busy.stopAnimating()
+                alertMessage(show: "Connect failed")
+                return
+            }
+            button.setTitle("Disconnect", for: .normal)
+            video.outputWidth = Int32(1280)
+            video.outputHeight = Int32(720)
+            video.seekTime(0.0)
+
+            timer = Timer.scheduledTimer(timeInterval: 1.0/30, target: self, selector: #selector(ViewController.update), userInfo: nil, repeats: true)
+            timer?.fire()
         }
-        button.setTitle("Disconnect", for: .normal)
-        video.outputWidth = Int32(1280)
-        video.outputHeight = Int32(720)
-        video.seekTime(0.0)
-
-        timer = Timer.scheduledTimer(timeInterval: 1.0/30, target: self, selector: #selector(ViewController.update), userInfo: nil, repeats: true)
-        timer?.fire()
+        busy.startAnimating()
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+            connectRTSP()
+        }
     }
 
     fileprivate func stopStreaming(){
@@ -97,7 +100,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let url = address.text {
-            urlString = url
+            if urlString != url {
+                urlString = url
+                if video != nil {
+                    stopStreaming()
+                    startStreaming()
+                }
+            }
         }
         print("url = \(urlString)")
     }
